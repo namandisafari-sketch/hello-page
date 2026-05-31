@@ -11,11 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as EligibilityRouteImport } from './routes/eligibility'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ApiSchoolpayRouteImport } from './routes/api-schoolpay'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -26,6 +28,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnersRoute = PartnersRouteImport.update({
@@ -53,6 +60,11 @@ const ApiSchoolpayRoute = ApiSchoolpayRouteImport.update({
   path: '/api-schoolpay',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,32 +73,38 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/api-schoolpay': typeof ApiSchoolpayRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
   '/login': typeof LoginRoute
   '/partners': typeof PartnersRoute
+  '/portal': typeof PortalRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/api-schoolpay': typeof ApiSchoolpayRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
   '/login': typeof LoginRoute
   '/partners': typeof PartnersRoute
+  '/portal': typeof PortalRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/api-schoolpay': typeof ApiSchoolpayRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
   '/login': typeof LoginRoute
   '/partners': typeof PartnersRoute
+  '/portal': typeof PortalRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
 }
@@ -94,42 +112,50 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/api-schoolpay'
     | '/contact'
     | '/eligibility'
     | '/login'
     | '/partners'
+    | '/portal'
     | '/projects'
     | '/services'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/api-schoolpay'
     | '/contact'
     | '/eligibility'
     | '/login'
     | '/partners'
+    | '/portal'
     | '/projects'
     | '/services'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/api-schoolpay'
     | '/contact'
     | '/eligibility'
     | '/login'
     | '/partners'
+    | '/portal'
     | '/projects'
     | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   ApiSchoolpayRoute: typeof ApiSchoolpayRoute
   ContactRoute: typeof ContactRoute
   EligibilityRoute: typeof EligibilityRoute
   LoginRoute: typeof LoginRoute
   PartnersRoute: typeof PartnersRoute
+  PortalRoute: typeof PortalRoute
   ProjectsRoute: typeof ProjectsRoute
   ServicesRoute: typeof ServicesRoute
 }
@@ -148,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partners': {
@@ -185,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSchoolpayRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,11 +237,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   ApiSchoolpayRoute: ApiSchoolpayRoute,
   ContactRoute: ContactRoute,
   EligibilityRoute: EligibilityRoute,
   LoginRoute: LoginRoute,
   PartnersRoute: PartnersRoute,
+  PortalRoute: PortalRoute,
   ProjectsRoute: ProjectsRoute,
   ServicesRoute: ServicesRoute,
 }
