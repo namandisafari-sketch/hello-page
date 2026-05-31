@@ -96,20 +96,24 @@ export function PortalShell({
         <nav className="flex-1 space-y-1 px-3 py-4">
           {items.map((it) => {
             const active = pathname === it.to;
-            return (
-              <Link
-                key={it.to}
-                to={it.to}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                  active
-                    ? "bg-gradient-primary text-primary-foreground shadow-glow"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                )}
-              >
+            const isRootRoute = it.to === "/portal" || it.to === "/admin";
+            const className = cn(
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+              active
+                ? "bg-gradient-primary text-primary-foreground shadow-glow"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+            );
+            return isRootRoute ? (
+              <Link key={it.to} to={it.to} className={className}>
                 <it.icon className="h-4 w-4" />
                 {it.label}
               </Link>
+            ) : (
+              <a key={it.to} href={it.to} className={className}>
+                <it.icon className="h-4 w-4" />
+                {it.label}
+                <span className="ml-auto text-[10px] uppercase tracking-wider text-muted-foreground/60">soon</span>
+              </a>
             );
           })}
           {kind === "client" && (
