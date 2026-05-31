@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 import logo from "@/assets/tennahub-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,13 +21,24 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+async function routeByRole(navigate: (opts: { to: string }) => void) {
+  const { data: userData } = await supabase.auth.getUser();
+  if (!userData.user) return;
+  const { data: roles } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userData.user.id);
+  const isStaff = (roles ?? []).some((r) => r.role === "admin" || r.role === "staff");
+  navigate({ to: isStaff ? "/admin" : "/portal" });
+}
+
 function LoginPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/portal" });
+      if (data.session) routeByRole(navigate);
     });
   }, [navigate]);
 
@@ -40,7 +52,7 @@ function LoginPage() {
     setLoading(false);
     if (error) return toast.error(error.message);
     toast.success("Signed in");
-    navigate({ to: "/portal" });
+    await routeByRole(navigate);
   };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -59,6 +71,16 @@ function LoginPage() {
     toast.success("Check your email to confirm your account");
   };
 
+  const handleGoogle = async () => {
+    setLoading(true);
+    const res = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin + "/login",
+    });
+    setLoading(false);
+    if (res.error) return toast.error(res.error.message);
+    await routeByRole(navigate);
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-hero px-4 py-16">
       <div className="w-full max-w-md">
@@ -73,6 +95,22 @@ function LoginPage() {
               <h1 className="font-display text-xl font-bold">TennaHub Portal</h1>
               <p className="text-xs text-muted-foreground">Clients & staff sign in here</p>
             </div>
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            disabled={loading}
+            onClick={handleGoogle}
+            className="w-full"
+          >
+            Continue with Google
+          </Button>
+
+          <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
+            <div className="h-px flex-1 bg-border/60" />
+            <span>or with email</span>
+            <div className="h-px flex-1 bg-border/60" />
           </div>
 
           <Tabs defaultValue="signin">
