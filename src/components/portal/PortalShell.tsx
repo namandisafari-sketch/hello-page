@@ -23,9 +23,6 @@ type PortalKind = "client" | "admin";
 const links: Record<PortalKind, { to: string; label: string; icon: any }[]> = {
   client: [
     { to: "/portal", label: "Overview", icon: Home },
-    { to: "/portal/plan", label: "My Connection", icon: CreditCard },
-    { to: "/portal/agreements", label: "Agreements", icon: FileText },
-    { to: "/portal/receipts", label: "Receipts", icon: Receipt },
   ],
   admin: [
     { to: "/admin", label: "Dashboard", icon: Home },
