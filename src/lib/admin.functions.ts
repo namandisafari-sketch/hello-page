@@ -192,7 +192,7 @@ export const upsertCms = createServerFn({ method: "POST" })
     await assertStaff(context.userId);
     const { error } = await supabaseAdmin
       .from("cms_content")
-      .upsert({ key: data.key, value: data.value as object }, { onConflict: "key" });
+      .upsert({ key: data.key, value: data.value as any }, { onConflict: "key" });
     if (error) throw new Error(error.message);
     return { ok: true };
   });

@@ -19,6 +19,13 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ApiSchoolpayRouteImport } from './routes/api-schoolpay'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminSchoolpayRouteImport } from './routes/admin.schoolpay'
+import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminHrRouteImport } from './routes/admin.hr'
+import { Route as AdminCmsRouteImport } from './routes/admin.cms'
+import { Route as AdminClientsRouteImport } from './routes/admin.clients'
+import { Route as AdminBillingRouteImport } from './routes/admin.billing'
+import { Route as ApiPublicSchoolpayWebhookRouteImport } from './routes/api/public/schoolpay-webhook'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -70,10 +77,46 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSchoolpayRoute = AdminSchoolpayRouteImport.update({
+  id: '/schoolpay',
+  path: '/schoolpay',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjectsRoute = AdminProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHrRoute = AdminHrRouteImport.update({
+  id: '/hr',
+  path: '/hr',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCmsRoute = AdminCmsRouteImport.update({
+  id: '/cms',
+  path: '/cms',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsRoute = AdminClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBillingRoute = AdminBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiPublicSchoolpayWebhookRoute =
+  ApiPublicSchoolpayWebhookRouteImport.update({
+    id: '/api/public/schoolpay-webhook',
+    path: '/api/public/schoolpay-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/api-schoolpay': typeof ApiSchoolpayRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
@@ -82,10 +125,17 @@ export interface FileRoutesByFullPath {
   '/portal': typeof PortalRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
+  '/admin/billing': typeof AdminBillingRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/cms': typeof AdminCmsRoute
+  '/admin/hr': typeof AdminHrRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/schoolpay': typeof AdminSchoolpayRoute
+  '/api/public/schoolpay-webhook': typeof ApiPublicSchoolpayWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/api-schoolpay': typeof ApiSchoolpayRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
@@ -94,11 +144,18 @@ export interface FileRoutesByTo {
   '/portal': typeof PortalRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
+  '/admin/billing': typeof AdminBillingRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/cms': typeof AdminCmsRoute
+  '/admin/hr': typeof AdminHrRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/schoolpay': typeof AdminSchoolpayRoute
+  '/api/public/schoolpay-webhook': typeof ApiPublicSchoolpayWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/api-schoolpay': typeof ApiSchoolpayRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
@@ -107,6 +164,13 @@ export interface FileRoutesById {
   '/portal': typeof PortalRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
+  '/admin/billing': typeof AdminBillingRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/cms': typeof AdminCmsRoute
+  '/admin/hr': typeof AdminHrRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/schoolpay': typeof AdminSchoolpayRoute
+  '/api/public/schoolpay-webhook': typeof ApiPublicSchoolpayWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +185,13 @@ export interface FileRouteTypes {
     | '/portal'
     | '/projects'
     | '/services'
+    | '/admin/billing'
+    | '/admin/clients'
+    | '/admin/cms'
+    | '/admin/hr'
+    | '/admin/projects'
+    | '/admin/schoolpay'
+    | '/api/public/schoolpay-webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +204,13 @@ export interface FileRouteTypes {
     | '/portal'
     | '/projects'
     | '/services'
+    | '/admin/billing'
+    | '/admin/clients'
+    | '/admin/cms'
+    | '/admin/hr'
+    | '/admin/projects'
+    | '/admin/schoolpay'
+    | '/api/public/schoolpay-webhook'
   id:
     | '__root__'
     | '/'
@@ -145,11 +223,18 @@ export interface FileRouteTypes {
     | '/portal'
     | '/projects'
     | '/services'
+    | '/admin/billing'
+    | '/admin/clients'
+    | '/admin/cms'
+    | '/admin/hr'
+    | '/admin/projects'
+    | '/admin/schoolpay'
+    | '/api/public/schoolpay-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ApiSchoolpayRoute: typeof ApiSchoolpayRoute
   ContactRoute: typeof ContactRoute
   EligibilityRoute: typeof EligibilityRoute
@@ -158,6 +243,7 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRoute
   ProjectsRoute: typeof ProjectsRoute
   ServicesRoute: typeof ServicesRoute
+  ApiPublicSchoolpayWebhookRoute: typeof ApiPublicSchoolpayWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -232,12 +318,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/schoolpay': {
+      id: '/admin/schoolpay'
+      path: '/schoolpay'
+      fullPath: '/admin/schoolpay'
+      preLoaderRoute: typeof AdminSchoolpayRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/hr': {
+      id: '/admin/hr'
+      path: '/hr'
+      fullPath: '/admin/hr'
+      preLoaderRoute: typeof AdminHrRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/cms': {
+      id: '/admin/cms'
+      path: '/cms'
+      fullPath: '/admin/cms'
+      preLoaderRoute: typeof AdminCmsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients': {
+      id: '/admin/clients'
+      path: '/clients'
+      fullPath: '/admin/clients'
+      preLoaderRoute: typeof AdminClientsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/billing': {
+      id: '/admin/billing'
+      path: '/billing'
+      fullPath: '/admin/billing'
+      preLoaderRoute: typeof AdminBillingRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/public/schoolpay-webhook': {
+      id: '/api/public/schoolpay-webhook'
+      path: '/api/public/schoolpay-webhook'
+      fullPath: '/api/public/schoolpay-webhook'
+      preLoaderRoute: typeof ApiPublicSchoolpayWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminBillingRoute: typeof AdminBillingRoute
+  AdminClientsRoute: typeof AdminClientsRoute
+  AdminCmsRoute: typeof AdminCmsRoute
+  AdminHrRoute: typeof AdminHrRoute
+  AdminProjectsRoute: typeof AdminProjectsRoute
+  AdminSchoolpayRoute: typeof AdminSchoolpayRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBillingRoute: AdminBillingRoute,
+  AdminClientsRoute: AdminClientsRoute,
+  AdminCmsRoute: AdminCmsRoute,
+  AdminHrRoute: AdminHrRoute,
+  AdminProjectsRoute: AdminProjectsRoute,
+  AdminSchoolpayRoute: AdminSchoolpayRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   ApiSchoolpayRoute: ApiSchoolpayRoute,
   ContactRoute: ContactRoute,
   EligibilityRoute: EligibilityRoute,
@@ -246,17 +401,8 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRoute,
   ProjectsRoute: ProjectsRoute,
   ServicesRoute: ServicesRoute,
+  ApiPublicSchoolpayWebhookRoute: ApiPublicSchoolpayWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

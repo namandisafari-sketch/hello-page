@@ -52,7 +52,7 @@ export const Route = createFileRoute("/api/public/schoolpay-webhook")({
           event_type: parsed.event_type,
           student_ref: parsed.student_ref ?? null,
           amount_ugx: parsed.amount_ugx ?? null,
-          payload: parsed as unknown as object,
+          payload: parsed as any,
         });
 
         // Gate-access decision (sample logic)
