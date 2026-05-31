@@ -23,9 +23,6 @@ type PortalKind = "client" | "admin";
 const links: Record<PortalKind, { to: string; label: string; icon: any }[]> = {
   client: [
     { to: "/portal", label: "Overview", icon: Home },
-    { to: "/portal/plan", label: "My Connection", icon: CreditCard },
-    { to: "/portal/agreements", label: "Agreements", icon: FileText },
-    { to: "/portal/receipts", label: "Receipts", icon: Receipt },
   ],
   admin: [
     { to: "/admin", label: "Dashboard", icon: Home },
@@ -96,24 +93,17 @@ export function PortalShell({
         <nav className="flex-1 space-y-1 px-3 py-4">
           {items.map((it) => {
             const active = pathname === it.to;
-            const isRootRoute = it.to === "/portal" || it.to === "/admin";
             const className = cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
               active
                 ? "bg-gradient-primary text-primary-foreground shadow-glow"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground",
             );
-            return isRootRoute ? (
+            return (
               <Link key={it.to} to={it.to} className={className}>
                 <it.icon className="h-4 w-4" />
                 {it.label}
               </Link>
-            ) : (
-              <a key={it.to} href={it.to} className={className}>
-                <it.icon className="h-4 w-4" />
-                {it.label}
-                <span className="ml-auto text-[10px] uppercase tracking-wider text-muted-foreground/60">soon</span>
-              </a>
             );
           })}
           {kind === "client" && (
