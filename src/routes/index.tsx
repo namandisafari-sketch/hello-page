@@ -10,6 +10,7 @@ import {
   Wifi,
 } from "lucide-react";
 import logo from "@/assets/tennahub-logo.png";
+import heroNetwork from "@/assets/hero-network.png";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -108,11 +109,23 @@ function Home() {
 
             <div className="relative">
               <div className="absolute inset-0 -z-10 rounded-full bg-primary/30 blur-[120px]" />
-              <div className="relative mx-auto aspect-square max-w-md rounded-3xl border border-border bg-card/30 p-10 backdrop-blur-xl shadow-card">
+              <div className="relative overflow-hidden rounded-3xl border border-border bg-card/30 shadow-card backdrop-blur-xl">
+                <img
+                  src={heroNetwork}
+                  alt="Enterprise network switch with structured fiber and Ethernet cabling installed by TennaHub engineers"
+                  className="aspect-[5/4] w-full object-cover"
+                  loading="eager"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/70 via-background/10 to-transparent" />
+                <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-xs backdrop-blur">
+                  <span className="h-2 w-2 rounded-full bg-primary-glow shadow-glow" />
+                  Live core — Kampala DC
+                </div>
                 <img
                   src={logo}
-                  alt="TennaHub Technologies logo"
-                  className="h-full w-full object-contain drop-shadow-[0_0_60px_oklch(0.58_0.22_268/0.6)]"
+                  alt=""
+                  aria-hidden
+                  className="absolute right-4 top-4 h-10 w-10 rounded-lg border border-border/60 bg-background/70 p-1.5 backdrop-blur"
                 />
               </div>
             </div>
