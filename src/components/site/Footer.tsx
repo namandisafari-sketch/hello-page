@@ -45,9 +45,9 @@ export function Footer() {
         <div>
           <h4 className="mb-3 text-sm font-semibold">Reach us</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 text-primary" /> Kampala, Uganda</li>
-            <li className="flex items-start gap-2"><Phone className="mt-0.5 h-4 w-4 text-primary" /> +256 700 000 000</li>
-            <li className="flex items-start gap-2"><Mail className="mt-0.5 h-4 w-4 text-primary" /> hello@tennahub.tech</li>
+            <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 text-primary" /><span>Kampala, Uganda</span></li>
+            <li className="flex items-start gap-2"><Phone className="mt-0.5 h-4 w-4 text-primary" /><span>+256 700 000 000</span></li>
+            <li className="flex items-start gap-2" suppressHydrationWarning><Mail className="mt-0.5 h-4 w-4 text-primary" /><span suppressHydrationWarning>hello@tennahub.tech</span></li>
           </ul>
         </div>
       </div>
